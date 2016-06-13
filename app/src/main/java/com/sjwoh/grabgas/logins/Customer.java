@@ -1,5 +1,8 @@
 package com.sjwoh.grabgas.logins;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by choonho on 13/6/2016.
  */
@@ -21,5 +24,30 @@ public class Customer extends User {
 
     public void setAddress(String address) {
         this.mAddress = address;
+    }
+
+    public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>() {
+        public Customer createFromParcel(Parcel inParcel) {
+            return new Customer(inParcel);
+        }
+        public Customer[] newArray(int size) {
+            return new Customer[size];
+        }
+    };
+
+    private Customer(Parcel inParcel) {
+        super(inParcel);
+        mAddress = inParcel.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel outParcel, int flags) {
+        super.writeToParcel(outParcel, flags);
+        outParcel.writeString(getAddress());
     }
 }

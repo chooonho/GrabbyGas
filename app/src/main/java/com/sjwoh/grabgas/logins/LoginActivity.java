@@ -1,5 +1,7 @@
 package com.sjwoh.grabgas.logins;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
+import com.sjwoh.grabgas.ViewSupplierActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -88,7 +91,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginCallback(User user) {
-
+        Intent intent = new Intent(getApplicationContext(), ViewSupplierActivity.class);
+        intent.putExtra("USER_OBJECT", user);
+        startActivity(intent);
+        finish();
     }
 
     @Override
