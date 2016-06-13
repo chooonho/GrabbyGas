@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "687228555929",
+    "firebase_url": "https://grabgas-1a944.firebaseio.com",
+    "project_id": "grabgas-1a944",
+    "storage_bucket": "grabgas-1a944.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687228555929:android:d1e3342a79b480bf",
+        "android_client_info": {
+          "package_name": "com.sjwoh.grabgas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687228555929-k9krqch50p5k5d4i4tflf5l4gohgfo6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp2I6UGTXMj85aOmQ8s73AQ6hlePu3xfA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
