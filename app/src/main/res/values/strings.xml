@@ -6,4 +6,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="title_activity_splashscreen">Grab Gas</string>
+    <string name="splash_content">GRAB GAS\nIN JUST\nA TAP</string>
+
+    <string name="google_map_api_key">AIzaSyCp2I6UGTXMj85aOmQ8s73AQ6hlePu3xfA</string>
 </resources>
