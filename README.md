@@ -1,2 +1,5 @@
 # GrabGas
-CSCI311 Project - Grab Gas
+Mini Project
+Android Mobile Application
+
+"Grab gas with just a single tap"
