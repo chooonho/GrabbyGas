@@ -160,27 +160,7 @@ public class MainActivity extends AppCompatActivity
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Location addressLocation = findLocationWithAddress();
 
-        if(addressLocation == null) {
-            if (mLastLocation != null) {
-                double latitude = mLastLocation.getLatitude();
-                double longitude = mLastLocation.getLongitude();
-
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(new LatLng(latitude, longitude))
-                        .zoom(15)
-                        .bearing(0)
-                        .tilt(45)
-                        .build();
-
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(latitude, longitude)).title("Your current location says here!"));
-            }
-            else {
-                Toast.makeText(this, "Location service is not turned on", Toast.LENGTH_LONG).show();
-            }
-        }
-        else {
+        if(addressLocation != null) {
             double latitude = addressLocation.getLatitude();
             double longitude = addressLocation.getLongitude();
 
@@ -195,6 +175,28 @@ public class MainActivity extends AppCompatActivity
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(addressLocation.getLatitude(), addressLocation.getLongitude()))
                     .title("Your house address says here!"));
+        }
+        else {
+            Toast.makeText(this, "Unable to locate your house address", Toast.LENGTH_LONG).show();
+        }
+
+        if (mLastLocation != null) {
+            double latitude = mLastLocation.getLatitude();
+            double longitude = mLastLocation.getLongitude();
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(latitude, longitude))
+                    .zoom(15)
+                    .bearing(0)
+                    .tilt(45)
+                    .build();
+
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(latitude, longitude)).title("Your current location says here!"));
+        }
+        else {
+            Toast.makeText(this, "Location service is not turned on", Toast.LENGTH_LONG).show();
         }
     }
 
