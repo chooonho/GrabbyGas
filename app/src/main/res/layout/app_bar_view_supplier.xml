@@ -24,7 +24,7 @@
     <include layout="@layout/content_view_supplier" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -34,6 +34,6 @@
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginTop="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin_bottom"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:src="@drawable/ic_order_white" />
 
 </android.support.design.widget.CoordinatorLayout>
