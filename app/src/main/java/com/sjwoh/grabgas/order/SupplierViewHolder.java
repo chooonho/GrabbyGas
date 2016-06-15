@@ -3,6 +3,7 @@ package com.sjwoh.grabgas.order;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sjwoh.grabgas.R;
 
@@ -21,5 +22,12 @@ public class SupplierViewHolder extends RecyclerView.ViewHolder {
         textViewSupplierDistance = (TextView)v.findViewById(R.id.textViewSupplierDistance);
         textViewSupplierMobile = (TextView)v.findViewById(R.id.textViewSupplierMobile);
         textViewBrands = (TextView)v.findViewById(R.id.textViewBrands);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), textViewSupplierName.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
