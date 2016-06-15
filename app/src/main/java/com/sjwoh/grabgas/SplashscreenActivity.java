@@ -157,6 +157,8 @@ public class SplashscreenActivity extends AppCompatActivity {
                             supplier.setUsername(dataSnapshot.getKey());
                             supplier.setMobilePhone(dataSnapshot.child("mobilePhone").getValue().toString());
                             supplier.setName(dataSnapshot.child("name").getValue().toString());
+                            supplier.setLocLatitude(Double.parseDouble(dataSnapshot.child("locLatitude").getValue().toString()));
+                            supplier.setLocLongitude(Double.parseDouble(dataSnapshot.child("locLongitude").getValue().toString()));
 
                             loginCallback(supplier);
                         }

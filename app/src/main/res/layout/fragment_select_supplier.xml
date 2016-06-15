@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/recycler_vertical_margin"
+    android:paddingBottom="@dimen/recycler_vertical_margin"
+    android:paddingLeft="@dimen/recycler_horizontal_margin"
+    android:paddingRight="@dimen/recycler_horizontal_margin"
+    tools:context="com.sjwoh.grabgas.order.SelectSupplierFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewSuppliers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.LoginActivity;
 import com.sjwoh.grabgas.logins.User;
+import com.sjwoh.grabgas.order.MakeOrderActivity;
 
 import java.io.IOException;
 import java.util.List;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private GoogleMap mMap;
+    private FloatingActionButton fabOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +62,23 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fabOrder = (FloatingActionButton) findViewById(R.id.fabOrder);
+        fabOrder = (FloatingActionButton) findViewById(R.id.fabOrder);
         fabOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(), MakeOrderActivity.class);
+                intent.putExtra("USER_OBJECT", getIntent().getParcelableExtra("USER_OBJECT"));
+
+                startActivity(intent);
             }
         });
+//        fabOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

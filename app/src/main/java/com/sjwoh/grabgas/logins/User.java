@@ -59,4 +59,22 @@ public abstract class User implements Parcelable {
         mName = inParcel.readString();
         mMobilePhone = inParcel.readString();
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if(object instanceof Supplier) {
+            return getUsername().equals(((Supplier)object).getUsername());
+        }
+
+        if(object instanceof Customer) {
+            return getUsername().equals(((Customer)object).getUsername());
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return getUsername().hashCode();
+    }
 }
