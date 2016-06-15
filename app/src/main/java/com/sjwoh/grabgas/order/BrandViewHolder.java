@@ -14,17 +14,21 @@ import com.sjwoh.grabgas.R;
  */
 public class BrandViewHolder extends RecyclerView.ViewHolder {
     protected TextView textViewBrandName, textViewBrandPrice;
+    private OnItemClickListener mItemClickListener;
 
-    public BrandViewHolder(View v) {
+    public BrandViewHolder(View v, OnItemClickListener itemClickListener) {
         super(v);
 
         textViewBrandName = (TextView)v.findViewById(R.id.textViewBrandName);
         textViewBrandPrice = (TextView)v.findViewById(R.id.textViewBrandPrice);
+        mItemClickListener = itemClickListener;
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), textViewBrandName.getText(), Toast.LENGTH_SHORT).show();
+                if(mItemClickListener != null) {
+                    mItemClickListener.onItemClick(view, getAdapterPosition());
+                }
             }
         });
     }

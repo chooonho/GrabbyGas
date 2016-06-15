@@ -4,25 +4,30 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.sjwoh.grabgas.R;
+import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.Supplier;
+
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SelectBrandFragment.OnFragmentInteractionListener} interface
+ * {@link ConfirmOrderFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SelectBrandFragment#newInstance} factory method to
+ * Use the {@link ConfirmOrderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SelectBrandFragment extends Fragment {
+public class ConfirmOrderFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,11 +37,17 @@ public class SelectBrandFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private TextView textViewCustomerName, textViewCustomerUsername,
+                        textViewSupplierName, textViewSupplierUsername, textViewBrandName,
+                        textViewSinglePrice, textViewTotalPrice;
+    private Spinner spinnerQuantity;
+    private DatePicker datePickerDeliveryDate;
+    private TimePicker timePickerDeliveryTime;
+    private final int MAX_QUANTITY = 20;
+
     private OnFragmentInteractionListener mListener;
 
-    private BrandAdapter mBrandAdapter;
-
-    public SelectBrandFragment() {
+    public ConfirmOrderFragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +57,11 @@ public class SelectBrandFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SelectBrandFragment.
+     * @return A new instance of fragment ConfirmOrderFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SelectBrandFragment newInstance(String param1, String param2) {
-        SelectBrandFragment fragment = new SelectBrandFragment();
+    public static ConfirmOrderFragment newInstance(String param1, String param2) {
+        ConfirmOrderFragment fragment = new ConfirmOrderFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,46 +76,39 @@ public class SelectBrandFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        Supplier supplier = getArguments().getParcelable("SELECTED_SUPPLIER_OBJECT");
-        mBrandAdapter = new BrandAdapter(supplier);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vRoot = inflater.inflate(R.layout.fragment_select_brand, container, false);
+        View vRoot = inflater.inflate(R.layout.fragment_confirm_order, container, false);
 
-        RecyclerView recyclerView = (RecyclerView)vRoot.findViewById(R.id.recyclerViewBrands);
-        recyclerView.setHasFixedSize(true);
-        GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(glm);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mBrandAdapter);
+        textViewCustomerName = (TextView)vRoot.findViewById(R.id.textViewCustomerName);
+        textViewCustomerUsername = (TextView)vRoot.findViewById(R.id.textViewCustomerUsername);
+        textViewSupplierName = (TextView)vRoot.findViewById(R.id.textViewSupplierName);
+        textViewSupplierUsername = (TextView)vRoot.findViewById(R.id.textViewSupplierUsername);
+        textViewBrandName = (TextView)vRoot.findViewById(R.id.textViewBrandName);
+        spinnerQuantity = (Spinner)vRoot.findViewById(R.id.spinnerQuantity);
+        textViewSinglePrice = (TextView)vRoot.findViewById(R.id.textViewSinglePrice);
+        textViewTotalPrice = (TextView)vRoot.findViewById(R.id.textViewTotalPrice);
+
+        datePickerDeliveryDate = (DatePicker)vRoot.findViewById(R.id.datePickerDeliveryDate);
+        timePickerDeliveryTime = (TimePicker)vRoot.findViewById(R.id.timePickerDeliveryTime);
+
+        Integer[] values = new Integer[MAX_QUANTITY];
+        for(int i = 0; i < MAX_QUANTITY; i++) {
+            values[i] = i + 1;
+        }
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getActivity(), R.layout.support_simple_spinner_dropdown_item, values);
+        spinnerQuantity.setAdapter(adapter);
 
         return vRoot;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mBrandAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                ConfirmOrderFragment confirmOrderFragment = new ConfirmOrderFragment();
-
-                Bundle bOrder = new Bundle();
-                bOrder.putParcelable("SELECTED_SUPPLIER_OBJECT", getArguments().getParcelable("SELECTED_SUPPLIER_OBJECT"));
-                bOrder.putParcelable("SELECTED_GAS_OBJECT", mBrandAdapter.getItem(position));
-                confirmOrderFragment.setArguments(bOrder);
-
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.rootLayoutMakeOrder, confirmOrderFragment, "CONFIRM_ORDER")
-                        .addToBackStack("CONFIRM_ORDER")
-                        .commit();
-            }
-        });
+        initOrder();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -144,5 +148,19 @@ public class SelectBrandFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void initOrder() {
+        Customer customer = getActivity().getIntent().getParcelableExtra("USER_OBJECT");
+        Supplier supplier = getArguments().getParcelable("SELECTED_SUPPLIER_OBJECT");
+        Gas gas = getArguments().getParcelable("SELECTED_GAS_OBJECT");
+
+        textViewCustomerName.setText(customer.getName());
+        textViewCustomerUsername.setText(customer.getUsername());
+        textViewSupplierName.setText(supplier.getName());
+        textViewSupplierUsername.setText(supplier.getUsername());
+        textViewBrandName.setText(gas.getName().toUpperCase());
+        textViewSinglePrice.setText("RM " + String.format(Locale.getDefault(), "%.2f", gas.getPrice()) + " ea");
+        textViewTotalPrice.setText("RM 0.00");
     }
 }

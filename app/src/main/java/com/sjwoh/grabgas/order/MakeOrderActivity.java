@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.sjwoh.grabgas.R;
 
-public class MakeOrderActivity extends AppCompatActivity implements SelectSupplierFragment.OnFragmentInteractionListener, SelectBrandFragment.OnFragmentInteractionListener {
+public class MakeOrderActivity extends AppCompatActivity implements SelectSupplierFragment.OnFragmentInteractionListener, SelectBrandFragment.OnFragmentInteractionListener, ConfirmOrderFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

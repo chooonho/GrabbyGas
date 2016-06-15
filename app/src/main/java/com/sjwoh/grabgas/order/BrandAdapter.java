@@ -17,6 +17,7 @@ import java.util.Locale;
 public class BrandAdapter extends RecyclerView.Adapter<BrandViewHolder> {
     private Supplier mSupplier;
     private List<Gas> mGases;
+    private OnItemClickListener mItemClickListener;
 
     public BrandAdapter(Supplier supplier) {
         mSupplier = supplier;
@@ -35,11 +36,19 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandViewHolder> {
     public BrandViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_brand, viewGroup, false);
 
-        return new BrandViewHolder(itemView);
+        return new BrandViewHolder(itemView, mItemClickListener);
     }
 
     @Override
     public int getItemCount() {
         return mGases.size();
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
+    }
+
+    public Gas getItem(int position) {
+        return mGases.get(position);
     }
 }
