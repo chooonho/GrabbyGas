@@ -10,7 +10,6 @@
     android:clickable="true"
     app:cardCornerRadius="4dp">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,6 +18,7 @@
             android:id="@+id/imageViewSupplierIcon"
             android:layout_width="135dp"
             android:layout_height="146dp"
+            android:padding="@dimen/card_horizontal_margin"
             android:scaleType="centerInside"
             android:src="@drawable/ic_supplier"
             android:background="@color/black_overlay"/>

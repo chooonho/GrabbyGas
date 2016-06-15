@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.sjwoh.grabgas.R;
 
-public class MakeOrderActivity extends AppCompatActivity implements SelectSupplierFragment.OnFragmentInteractionListener {
+public class MakeOrderActivity extends AppCompatActivity implements SelectSupplierFragment.OnFragmentInteractionListener, SelectBrandFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class MakeOrderActivity extends AppCompatActivity implements SelectSuppli
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.rootLayoutMakeOrder, selectSupplierFragment)
+                    .add(R.id.rootLayoutMakeOrder, selectSupplierFragment, "SELECT_SUPPLIER")
                     .commit();
         }
     }

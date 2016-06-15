@@ -2,7 +2,6 @@ package com.sjwoh.grabgas.order;
 
 import android.location.Location;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierViewHolder> {
     private List<Supplier> mSuppliers;
     private LatLng mCustomerLatLng;
     private DatabaseReference mDatabaseReference;
+    private OnItemClickListener mItemClickListener;
 
     public SupplierAdapter(DatabaseReference databaseReference, LatLng customerLatLng) {
         mCustomerLatLng = customerLatLng;
@@ -71,7 +71,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierViewHolder> {
     public SupplierViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_supplier, viewGroup, false);
 
-        return new SupplierViewHolder(itemView);
+        return new SupplierViewHolder(itemView, mItemClickListener);
     }
 
     @Override
@@ -157,5 +157,13 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierViewHolder> {
         };
 
         mDatabaseReference.addValueEventListener(supplierListener);
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
+    }
+
+    public Supplier getItem(int position) {
+        return mSuppliers.get(position);
     }
 }

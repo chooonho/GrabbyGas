@@ -1,39 +1,29 @@
 package com.sjwoh.grabgas.order;
 
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.database.FirebaseDatabase;
 import com.sjwoh.grabgas.R;
-import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.Supplier;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SelectSupplierFragment.OnFragmentInteractionListener} interface
+ * {@link SelectBrandFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SelectSupplierFragment#newInstance} factory method to
+ * Use the {@link SelectBrandFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SelectSupplierFragment extends Fragment {
+public class SelectBrandFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,11 +33,11 @@ public class SelectSupplierFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private SupplierAdapter mSupplierAdapter;
-
     private OnFragmentInteractionListener mListener;
 
-    public SelectSupplierFragment() {
+    private BrandAdapter mBrandAdapter;
+
+    public SelectBrandFragment() {
         // Required empty public constructor
     }
 
@@ -57,11 +47,11 @@ public class SelectSupplierFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SelectSupplierFragment.
+     * @return A new instance of fragment SelectBrandFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SelectSupplierFragment newInstance(String param1, String param2) {
-        SelectSupplierFragment fragment = new SelectSupplierFragment();
+    public static SelectBrandFragment newInstance(String param1, String param2) {
+        SelectBrandFragment fragment = new SelectBrandFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,46 +67,24 @@ public class SelectSupplierFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        Location customerLocation = findLocationWithAddress();
-        LatLng customerLatLng = new LatLng(customerLocation.getLatitude(), customerLocation.getLongitude());
-
-        mSupplierAdapter = new SupplierAdapter(FirebaseDatabase.getInstance().getReference(), customerLatLng);
+        Supplier supplier = getArguments().getParcelable("SELECTED_SUPPLIER_OBJECT");
+        mBrandAdapter = new BrandAdapter(supplier);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vRoot = inflater.inflate(R.layout.fragment_select_supplier, container, false);
+        View vRoot = inflater.inflate(R.layout.fragment_select_brand, container, false);
 
-        RecyclerView recyclerView = (RecyclerView)vRoot.findViewById(R.id.recyclerViewSuppliers);
+        RecyclerView recyclerView = (RecyclerView)vRoot.findViewById(R.id.recyclerViewBrands);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(llm);
+        GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(glm);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mSupplierAdapter);
+        recyclerView.setAdapter(mBrandAdapter);
 
         return vRoot;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        mSupplierAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                SelectBrandFragment selectBrandFragment = new SelectBrandFragment();
-
-                Bundle bSupplier = new Bundle();
-                bSupplier.putParcelable("SELECTED_SUPPLIER_OBJECT", mSupplierAdapter.getItem(position));
-                selectBrandFragment.setArguments(bSupplier);
-
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.rootLayoutMakeOrder, selectBrandFragment, "SELECT_BRAND")
-                        .addToBackStack("SELECT_BRAND")
-                        .commit();
-            }
-        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -148,7 +116,7 @@ public class SelectSupplierFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -156,33 +124,5 @@ public class SelectSupplierFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    private Location findLocationWithAddress() {
-        double longitude = 0, latitude = 0;
-        Customer customer = getActivity().getIntent().getParcelableExtra("USER_OBJECT");
-
-        try {
-            Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocationName(customer.getAddress(), 1);
-
-            if(addresses.size() > 0) {
-                longitude = addresses.get(0).getLongitude();
-                latitude = addresses.get(0).getLatitude();
-
-                Location addressLocation = new Location("");
-                addressLocation.setLatitude(latitude);
-                addressLocation.setLongitude(longitude);
-
-                return addressLocation;
-            }
-
-            return null;
-        }
-        catch (IOException ex) {
-            // Do nothing for now
-        }
-
-        return null;
     }
 }
