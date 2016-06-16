@@ -78,9 +78,14 @@ public class SelectSupplierFragment extends Fragment {
         }
 
         Location customerLocation = findLocationWithAddress();
-        LatLng customerLatLng = new LatLng(customerLocation.getLatitude(), customerLocation.getLongitude());
 
-        mSupplierAdapter = new SupplierAdapter(FirebaseDatabase.getInstance().getReference(), customerLatLng);
+        if(customerLocation != null) {
+            LatLng customerLatLng = new LatLng(customerLocation.getLatitude(), customerLocation.getLongitude());
+            mSupplierAdapter = new SupplierAdapter(FirebaseDatabase.getInstance().getReference(), customerLatLng);
+        }
+        else {
+            mSupplierAdapter = new SupplierAdapter(FirebaseDatabase.getInstance().getReference(), null);
+        }
     }
 
     @Override
@@ -166,7 +171,7 @@ public class SelectSupplierFragment extends Fragment {
             Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocationName(customer.getAddress(), 1);
 
-            if(addresses.size() > 0) {
+            if(addresses != null && addresses.size() > 0) {
                 longitude = addresses.get(0).getLongitude();
                 latitude = addresses.get(0).getLatitude();
 
@@ -180,9 +185,7 @@ public class SelectSupplierFragment extends Fragment {
             return null;
         }
         catch (IOException ex) {
-            // Do nothing for now
+            return null;
         }
-
-        return null;
     }
 }

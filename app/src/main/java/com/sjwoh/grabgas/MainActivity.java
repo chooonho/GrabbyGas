@@ -72,13 +72,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-//        fabOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -186,11 +179,12 @@ public class MainActivity extends AppCompatActivity
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_house_location_yellow))
                     .position(new LatLng(addressLocation.getLatitude(), addressLocation.getLongitude()))
                     .title("Your house address says here!"));
         }
         else {
-            Toast.makeText(this, "Unable to locate your house address", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Unable to locate your house address", Toast.LENGTH_SHORT).show();
         }
 
         if (mLastLocation != null) {
@@ -206,10 +200,11 @@ public class MainActivity extends AppCompatActivity
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_person_location_yellow))
                     .position(new LatLng(latitude, longitude)).title("Your current location says here!"));
         }
         else {
-            Toast.makeText(this, "Location service is not turned on", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Location service is not turned on", Toast.LENGTH_SHORT).show();
         }
     }
 

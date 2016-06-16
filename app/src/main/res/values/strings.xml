@@ -12,6 +12,6 @@
 
     <string name="google_map_api_key">AIzaSyCp2I6UGTXMj85aOmQ8s73AQ6hlePu3xfA</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_confirm">Confirm</string>
 </resources>

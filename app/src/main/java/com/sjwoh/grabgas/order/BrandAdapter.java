@@ -26,6 +26,10 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandViewHolder> {
 
     @Override
     public void onBindViewHolder(BrandViewHolder brandViewHolder, int index) {
+        if(mGases == null || mGases.size() == 0) {
+            return;
+        }
+
         Gas gas = mGases.get(index);
 
         brandViewHolder.textViewBrandName.setText(gas.getName().toUpperCase());

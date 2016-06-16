@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,10 +41,12 @@ public class ConfirmOrderFragment extends Fragment {
 
     private TextView textViewCustomerName, textViewCustomerUsername,
                         textViewSupplierName, textViewSupplierUsername, textViewBrandName,
-                        textViewSinglePrice, textViewTotalPrice;
+                        textViewSinglePrice, textViewTotalPrice, textViewAddress;
     private Spinner spinnerQuantity;
     private DatePicker datePickerDeliveryDate;
     private TimePicker timePickerDeliveryTime;
+    private Button buttonCancel, buttonConfirm;
+    private Integer[] values;
     private final int MAX_QUANTITY = 20;
 
     private OnFragmentInteractionListener mListener;
@@ -86,6 +90,7 @@ public class ConfirmOrderFragment extends Fragment {
 
         textViewCustomerName = (TextView)vRoot.findViewById(R.id.textViewCustomerName);
         textViewCustomerUsername = (TextView)vRoot.findViewById(R.id.textViewCustomerUsername);
+        textViewAddress = (TextView)vRoot.findViewById(R.id.textViewAddress);
         textViewSupplierName = (TextView)vRoot.findViewById(R.id.textViewSupplierName);
         textViewSupplierUsername = (TextView)vRoot.findViewById(R.id.textViewSupplierUsername);
         textViewBrandName = (TextView)vRoot.findViewById(R.id.textViewBrandName);
@@ -96,11 +101,15 @@ public class ConfirmOrderFragment extends Fragment {
         datePickerDeliveryDate = (DatePicker)vRoot.findViewById(R.id.datePickerDeliveryDate);
         timePickerDeliveryTime = (TimePicker)vRoot.findViewById(R.id.timePickerDeliveryTime);
 
-        Integer[] values = new Integer[MAX_QUANTITY];
+        buttonCancel = (Button)vRoot.findViewById(R.id.buttonCancel);
+        buttonConfirm = (Button)vRoot.findViewById(R.id.buttonConfirm);
+
+        values = new Integer[MAX_QUANTITY];
         for(int i = 0; i < MAX_QUANTITY; i++) {
             values[i] = i + 1;
         }
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getActivity(), R.layout.support_simple_spinner_dropdown_item, values);
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_spinner_dropdown_item, values);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerQuantity.setAdapter(adapter);
 
         return vRoot;
@@ -109,6 +118,36 @@ public class ConfirmOrderFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         initOrder();
+
+        spinnerQuantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                Gas gas = getArguments().getParcelable("SELECTED_GAS_OBJECT");
+                int quantity = Integer.parseInt(adapterView.getItemAtPosition(position).toString());
+                double totalPrice = (gas != null) ? quantity * gas.getPrice() : 0;
+
+                textViewTotalPrice.setText("RM " + String.format(Locale.getDefault(), "%.2f", totalPrice));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                textViewTotalPrice.setText("RM 0.00");
+            }
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -157,6 +196,7 @@ public class ConfirmOrderFragment extends Fragment {
 
         textViewCustomerName.setText(customer.getName());
         textViewCustomerUsername.setText(customer.getUsername());
+        textViewAddress.setText(customer.getAddress());
         textViewSupplierName.setText(supplier.getName());
         textViewSupplierUsername.setText(supplier.getUsername());
         textViewBrandName.setText(gas.getName().toUpperCase());

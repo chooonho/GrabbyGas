@@ -38,6 +38,10 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierViewHolder> {
 
     @Override
     public void onBindViewHolder(SupplierViewHolder supplierViewHolder, int index) {
+        if(mSuppliers == null || mSuppliers.size() == 0) {
+            return;
+        }
+
         Supplier supplier = mSuppliers.get(index);
 
         LatLng endLatLng = new LatLng(supplier.getLocLatitude(), supplier.getLocLongitude());
