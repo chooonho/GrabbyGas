@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.customer.MainActivityCustomer;
+import com.sjwoh.grabgas.supplier.MainActivitySupplier;
 
 import java.util.UUID;
 
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         customer.setName(dataSnapshot.child("name").getValue().toString());
                         customer.setAddress(dataSnapshot.child("address").getValue().toString());
 
-                        loginCallback(customer, token, this);
+                        loginCallback(customer, token);
                     }
                     else {
                         Supplier supplier = new Supplier();
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         supplier.setLocLatitude(Double.parseDouble(dataSnapshot.child("locLatitude").getValue().toString()));
                         supplier.setLocLongitude(Double.parseDouble(dataSnapshot.child("locLongitude").getValue().toString()));
 
-                        loginCallback(supplier, token, this);
+                        loginCallback(supplier, token);
                     }
 
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
@@ -100,16 +101,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         };
 
         mUserReference = FirebaseDatabase.getInstance().getReference().child("user").child(username);
-        mUserReference.addValueEventListener(userListener);
+        mUserReference.addListenerForSingleValueEvent(userListener);
 
         return true;
     }
 
-    private void loginCallback(User user, String token, ValueEventListener valueEventListener) {
-        mUserReference.removeEventListener(valueEventListener);
+    private void loginCallback(User user, String token) {
         mUserReference.child("token").setValue(token);
 
-        Intent intent = new Intent(getApplicationContext(), MainActivityCustomer.class);
+        Intent intent;
+        if(user instanceof Customer) {
+            intent = new Intent(getApplicationContext(), MainActivityCustomer.class);
+        }
+        else {
+            intent = new Intent(getApplicationContext(), MainActivitySupplier.class);
+        }
+
         intent.putExtra("USER_OBJECT", user);
         startActivity(intent);
         finish();

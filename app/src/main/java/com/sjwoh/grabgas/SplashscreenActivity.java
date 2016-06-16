@@ -8,6 +8,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -18,10 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.customer.MainActivityCustomer;
+import com.sjwoh.grabgas.init.InitAdapter;
 import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.LoginActivity;
 import com.sjwoh.grabgas.logins.Supplier;
 import com.sjwoh.grabgas.logins.User;
+import com.sjwoh.grabgas.supplier.MainActivitySupplier;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -120,6 +125,13 @@ public class SplashscreenActivity extends AppCompatActivity {
             }
         });
 
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerViewInit);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        InitAdapter initAdapter = new InitAdapter();
+        recyclerView.setAdapter(initAdapter);
+
         sharedPreferences = getSharedPreferences("USER_PREFERENCE", Context.MODE_PRIVATE);
     }
 
@@ -175,7 +187,7 @@ public class SplashscreenActivity extends AppCompatActivity {
             };
 
             mUserReference = FirebaseDatabase.getInstance().getReference().child("user").child(username);
-            mUserReference.addValueEventListener(userListener);
+            mUserReference.addListenerForSingleValueEvent(userListener);
         }
         else {
             moveToLogin();
@@ -242,7 +254,7 @@ public class SplashscreenActivity extends AppCompatActivity {
             intent = new Intent(getApplicationContext(), MainActivityCustomer.class);
         }
         else {
-            intent = new Intent(getApplicationContext(), MainActivityCustomer.class);
+            intent = new Intent(getApplicationContext(), MainActivitySupplier.class);
         }
 
         intent.putExtra("USER_OBJECT", user);

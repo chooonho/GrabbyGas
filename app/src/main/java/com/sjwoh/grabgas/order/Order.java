@@ -11,6 +11,7 @@ public class Order implements Parcelable {
     public static final int ORDER_PENDING = 0;
     public static final int ORDER_DONE = 1;
 
+    private String mOrderRef;
     private String mOrderedBy;
     private String mSuppliedBy;
     private String mAddress;
@@ -23,6 +24,7 @@ public class Order implements Parcelable {
     private Gas mGas;
 
     public Order() {
+        mOrderRef = "";
     }
 
     public Order(String mOrderedBy, String mSuppliedBy, String mAddress, String mOrderDateText, String mOrderTimeText, String mDeliveryDateText, String mDeliveryTimeText, int mQuantity, int mStatus, Gas mGas) {
@@ -37,6 +39,8 @@ public class Order implements Parcelable {
         this.mStatus = mStatus;
         this.mGas = mGas;
     }
+
+    public String getOrderRef() { return mOrderRef; }
 
     public String getOrderedBy() {
         return mOrderedBy;
@@ -77,6 +81,8 @@ public class Order implements Parcelable {
     public Gas getGas() {
         return mGas;
     }
+
+    public void setOrderRef(String mOrderRef) { this.mOrderRef = mOrderRef; }
 
     public void setOrderedBy(String mOrderedBy) {
         this.mOrderedBy = mOrderedBy;
@@ -134,6 +140,7 @@ public class Order implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel outParcel, int flags) {
+        outParcel.writeString(getOrderRef());
         outParcel.writeString(getOrderedBy());
         outParcel.writeString(getSuppliedBy());
         outParcel.writeString(getAddress());
@@ -147,6 +154,7 @@ public class Order implements Parcelable {
     }
 
     protected Order(Parcel inParcel) {
+        mOrderRef = inParcel.readString();
         mOrderedBy = inParcel.readString();
         mSuppliedBy = inParcel.readString();
         mAddress = inParcel.readString();

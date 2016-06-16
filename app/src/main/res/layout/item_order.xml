@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewOrder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    android:foreground="?android:selectableItemBackground"
+    android:clickable="true"
+    app:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewOrderBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:paddingTop="@dimen/card_vertical_margin"
+            android:paddingBottom="@dimen/card_vertical_margin"
+            android:paddingRight="@dimen/card_horizontal_margin"
+            android:paddingLeft="@dimen/card_horizontal_margin"
+            android:textSize="18dp"
+            android:textColor="@color/white_overlay"
+            android:text="Customer Username" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/card_vertical_margin"
+            android:paddingBottom="@dimen/card_vertical_margin"
+            android:paddingRight="@dimen/card_horizontal_margin"
+            android:paddingLeft="@dimen/card_horizontal_margin"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_vertical_margin"
+                android:paddingBottom="@dimen/card_vertical_margin"
+                android:paddingRight="@dimen/card_horizontal_margin"
+                android:paddingLeft="@dimen/card_horizontal_margin"
+                android:orientation="vertical"
+                android:layout_weight="6">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Brand"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Price"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Quantity"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Total Price"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Delivery Date"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Delivery Time"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Address"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#E0E0E0"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_vertical_margin"
+                android:paddingBottom="@dimen/card_vertical_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:layout_weight="4">
+
+                <TextView
+                    android:id="@+id/textViewBrandName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Gas Brand"/>
+
+                <TextView
+                    android:id="@+id/textViewBrandPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="RM 0.00 ea"/>
+
+                <TextView
+                    android:id="@+id/textViewQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="1"/>
+
+                <TextView
+                    android:id="@+id/textViewTotalPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="RM 0.00"/>
+
+                <TextView
+                    android:id="@+id/textViewDeliveryDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="Mon, Jun 21, 2016"/>
+
+                <TextView
+                    android:id="@+id/textViewDeliveryTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="07:00am , GMT"/>
+
+                <TextView
+                    android:id="@+id/textViewAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="16dp"
+                    android:text="7, Jalan SS15/5B, 47500 Subang Jaya"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -1,10 +1,16 @@
 package com.sjwoh.grabgas.supplier;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,14 +20,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.logins.LoginActivity;
+import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.logins.User;
+import com.sjwoh.grabgas.order.OrderAdapter;
 
 public class MainActivitySupplier extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView textViewName, textViewUsername;
     private SharedPreferences sharedPreferences;
+    private OrderAdapter mOrderAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +61,25 @@ public class MainActivitySupplier extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Supplier supplier = getIntent().getParcelableExtra("USER_OBJECT");
+        mOrderAdapter = new OrderAdapter(FirebaseDatabase.getInstance().getReference(), supplier);
+
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerViewOrders);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mOrderAdapter);
+
+        User user = getIntent().getParcelableExtra("USER_OBJECT");
+        View headerView = navigationView.getHeaderView(0);
+        textViewName = (TextView)headerView.findViewById(R.id.textViewName);
+        textViewUsername = (TextView)headerView.findViewById(R.id.textViewUsername);
+
+        textViewName.setText(user.getName());
+        textViewUsername.setText("@" + user.getUsername());
+
+        sharedPreferences = getSharedPreferences("USER_PREFERENCE", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -85,9 +118,11 @@ public class MainActivitySupplier extends AppCompatActivity
     }
 
     private void logout() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+        if(sharedPreferences != null) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+        }
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
