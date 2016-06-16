@@ -2,6 +2,7 @@ package com.sjwoh.grabgas.order;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,12 +15,18 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.Supplier;
 import com.sjwoh.grabgas.utility.CustomDatePicker;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -40,6 +47,7 @@ public class ConfirmOrderFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private DatabaseReference mDatabaseReference;
     private TextView textViewCustomerName, textViewCustomerUsername,
                         textViewSupplierName, textViewSupplierUsername, textViewBrandName,
                         textViewSinglePrice, textViewTotalPrice, textViewAddress;
@@ -86,6 +94,8 @@ public class ConfirmOrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
         // Inflate the layout for this fragment
         View vRoot = inflater.inflate(R.layout.fragment_confirm_order, container, false);
 
@@ -146,7 +156,9 @@ public class ConfirmOrderFragment extends Fragment {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                submitOrder();
+                Toast.makeText(getActivity(), "Order has been placed!", Toast.LENGTH_LONG).show();
+                getActivity().finish();
             }
         });
     }
@@ -203,5 +215,52 @@ public class ConfirmOrderFragment extends Fragment {
         textViewBrandName.setText(gas.getName().toUpperCase());
         textViewSinglePrice.setText("RM " + String.format(Locale.getDefault(), "%.2f", gas.getPrice()) + " ea");
         textViewTotalPrice.setText("RM 0.00");
+    }
+
+    private void submitOrder() {
+        Gas gas = getArguments().getParcelable("SELECTED_GAS_OBJECT");
+
+        Calendar deliveryCalendar = Calendar.getInstance();
+        String orderDateText = new SimpleDateFormat("EEE, MMM dd, yyyy").format(new Date());
+        String orderTimeText = new SimpleDateFormat("hh:MM a, z").format(new Date());
+        int deliveryHour;
+        int deliveryMinute;
+
+        if(Build.VERSION.SDK_INT >= 23) {
+            deliveryHour = timePickerDeliveryTime.getHour();
+            deliveryMinute = timePickerDeliveryTime.getMinute();
+        }
+        else {
+            deliveryHour = timePickerDeliveryTime.getCurrentHour();
+            deliveryMinute = timePickerDeliveryTime.getCurrentMinute();
+        }
+        deliveryCalendar.set(datePickerDeliveryDate.getYear(), datePickerDeliveryDate.getMonth(),
+                datePickerDeliveryDate.getDayOfMonth(), deliveryHour, deliveryMinute);
+
+        Order order = new Order();
+
+        order.setOrderedBy(textViewCustomerUsername.getText().toString());
+        order.setSuppliedBy(textViewSupplierUsername.getText().toString());
+        order.setAddress(textViewAddress.getText().toString());
+        order.setOrderDateText(orderDateText);
+        order.setOrderTimeText(orderTimeText);
+        order.setDeliveryDateText(new SimpleDateFormat("EEE, MMM dd, yyyy").format(deliveryCalendar.getTime()));
+        order.setDeliveryTimeText(new SimpleDateFormat("hh:MM a, z").format(deliveryCalendar.getTime()));
+        order.setQuantity(Integer.parseInt(spinnerQuantity.getSelectedItem().toString()));
+        order.setStatus(Order.ORDER_PENDING);
+        order.setGas(gas);
+
+        String orderRef = mDatabaseReference.child("order").push().getKey();
+
+        mDatabaseReference.child("order").child(orderRef).child("address").setValue(order.getAddress());
+        mDatabaseReference.child("order").child(orderRef).child("gasOrdered").child(order.getGas().getName()).child("price").setValue(order.getGas().getPrice());
+        mDatabaseReference.child("order").child(orderRef).child("gasOrdered").child(order.getGas().getName()).child("quantity").setValue(order.getQuantity());
+        mDatabaseReference.child("order").child(orderRef).child("orderDate").setValue(order.getOrderDateText());
+        mDatabaseReference.child("order").child(orderRef).child("orderTime").setValue(order.getOrderTimeText());
+        mDatabaseReference.child("order").child(orderRef).child("orderBy").setValue(order.getOrderedBy());
+        mDatabaseReference.child("order").child(orderRef).child("deliveryDate").setValue(order.getDeliveryDateText());
+        mDatabaseReference.child("order").child(orderRef).child("deliveryTime").setValue(order.getDeliveryTimeText());
+        mDatabaseReference.child("order").child(orderRef).child("status").setValue(order.getStatus());
+        mDatabaseReference.child("order").child(orderRef).child("suppliedBy").setValue(order.getSuppliedBy());
     }
 }

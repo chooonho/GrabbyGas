@@ -101,5 +101,6 @@ public class Supplier extends User {
                 bGases.putDouble(mGases.get(i).getName(), mGases.get(i).getPrice());
             }
         }
+        outParcel.writeBundle(bGases);
     }
 }
