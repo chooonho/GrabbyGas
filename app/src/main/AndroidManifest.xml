@@ -22,7 +22,7 @@
 
         <activity android:name=".logins.LoginActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".customer.MainActivityCustomer"
             android:label="@string/title_activity_view_supplier"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -36,7 +36,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".order.MakeOrderActivity"></activity>
+        <activity android:name=".order.MakeOrderActivity" />
+        <activity
+            android:name=".supplier.MainActivitySupplier"
+            android:label="@string/title_activity_main_activity_supplier"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

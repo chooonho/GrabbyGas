@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sjwoh.grabgas.customer.MainActivityCustomer;
 import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.LoginActivity;
 import com.sjwoh.grabgas.logins.Supplier;
@@ -233,7 +234,15 @@ public class SplashscreenActivity extends AppCompatActivity {
     }
 
     private void loginCallback(User user) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent;
+
+        if(user instanceof Customer) {
+            intent = new Intent(getApplicationContext(), MainActivityCustomer.class);
+        }
+        else {
+            intent = new Intent(getApplicationContext(), MainActivityCustomer.class);
+        }
+
         intent.putExtra("USER_OBJECT", user);
         startActivity(intent);
         finish();

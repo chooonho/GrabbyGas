@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
-import com.sjwoh.grabgas.MainActivity;
+import com.sjwoh.grabgas.customer.MainActivityCustomer;
 
 import java.util.UUID;
 
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mUserReference.removeEventListener(valueEventListener);
         mUserReference.child("token").setValue(token);
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivityCustomer.class);
         intent.putExtra("USER_OBJECT", user);
         startActivity(intent);
         finish();

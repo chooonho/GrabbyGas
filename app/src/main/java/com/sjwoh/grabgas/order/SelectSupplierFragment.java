@@ -7,10 +7,14 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -93,6 +97,13 @@ public class SelectSupplierFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vRoot = inflater.inflate(R.layout.fragment_select_supplier, container, false);
+
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if(appCompatActivity.getSupportActionBar() != null) {
+            appCompatActivity.getSupportActionBar().setTitle("Select Supplier");
+            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            appCompatActivity.getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         RecyclerView recyclerView = (RecyclerView)vRoot.findViewById(R.id.recyclerViewSuppliers);
         recyclerView.setHasFixedSize(true);

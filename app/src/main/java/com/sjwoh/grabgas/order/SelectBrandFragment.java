@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -75,6 +76,13 @@ public class SelectBrandFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vRoot = inflater.inflate(R.layout.fragment_select_brand, container, false);
+
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if(appCompatActivity.getSupportActionBar() != null) {
+            appCompatActivity.getSupportActionBar().setTitle("Select Supplier");
+            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            appCompatActivity.getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         RecyclerView recyclerView = (RecyclerView)vRoot.findViewById(R.id.recyclerViewBrands);
         recyclerView.setHasFixedSize(true);
