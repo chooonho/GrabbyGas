@@ -79,7 +79,7 @@ public class SelectBrandFragment extends Fragment {
 
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if(appCompatActivity.getSupportActionBar() != null) {
-            appCompatActivity.getSupportActionBar().setTitle("Select Supplier");
+            appCompatActivity.getSupportActionBar().setTitle("Select Brand");
             appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             appCompatActivity.getSupportActionBar().setHomeButtonEnabled(true);
         }

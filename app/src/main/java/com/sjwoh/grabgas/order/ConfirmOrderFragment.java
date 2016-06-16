@@ -102,7 +102,7 @@ public class ConfirmOrderFragment extends Fragment {
 
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if(appCompatActivity.getSupportActionBar() != null) {
-            appCompatActivity.getSupportActionBar().setTitle("Select Supplier");
+            appCompatActivity.getSupportActionBar().setTitle("Confirm Order");
             appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             appCompatActivity.getSupportActionBar().setHomeButtonEnabled(true);
         }

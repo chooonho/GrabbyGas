@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -168,7 +169,8 @@ public class SplashscreenActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // TODO: Log message
+                    Toast.makeText(getApplicationContext(), "Unable to login", Toast.LENGTH_SHORT).show();
+                    moveToLogin();
                 }
             };
 
