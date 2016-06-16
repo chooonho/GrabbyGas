@@ -18,6 +18,7 @@ import android.widget.TimePicker;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.utility.CustomDatePicker;
 
 import java.util.Locale;
 
@@ -98,7 +99,7 @@ public class ConfirmOrderFragment extends Fragment {
         textViewSinglePrice = (TextView)vRoot.findViewById(R.id.textViewSinglePrice);
         textViewTotalPrice = (TextView)vRoot.findViewById(R.id.textViewTotalPrice);
 
-        datePickerDeliveryDate = (DatePicker)vRoot.findViewById(R.id.datePickerDeliveryDate);
+        datePickerDeliveryDate = (CustomDatePicker)vRoot.findViewById(R.id.datePickerDeliveryDate);
         timePickerDeliveryTime = (TimePicker)vRoot.findViewById(R.id.timePickerDeliveryTime);
 
         buttonCancel = (Button)vRoot.findViewById(R.id.buttonCancel);

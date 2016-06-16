@@ -10,6 +10,7 @@
     tools:context=".order.ConfirmOrderFragment">
 
     <ScrollView
+        android:id="@+id/scrollViewOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -258,15 +259,17 @@
                         android:layout_height="40dp"
                         android:src="@drawable/ic_date_black"/>
 
-                    <DatePicker
+                    <com.sjwoh.grabgas.utility.CustomDatePicker
                         android:id="@+id/datePickerDeliveryDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/icon_date"
                         android:layout_toEndOf="@+id/icon_date"
-                        android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:datePickerMode="calendar" />
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:scaleX="0.95"
+                        android:scaleY="0.95"
+                        android:datePickerMode="calendar"/>
 
                 </RelativeLayout>
 
@@ -293,8 +296,10 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/icon_time"
                         android:layout_toEndOf="@+id/icon_time"
-                        android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:scaleX="0.95"
+                        android:scaleY="0.95"
                         android:timePickerMode="clock" />
 
                 </RelativeLayout>
