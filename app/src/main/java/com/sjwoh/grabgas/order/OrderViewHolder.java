@@ -12,8 +12,9 @@ import com.sjwoh.grabgas.R;
 public class OrderViewHolder extends RecyclerView.ViewHolder {
     protected TextView textViewOrderBy, textViewBrandName, textViewBrandPrice, textViewQuantity, textViewTotalPrice,
                         textViewDeliveryDate, textViewDeliveryTime, textViewAddress;
+    private OnItemClickListener mItemClickListener;
 
-    public OrderViewHolder(View v) {
+    public OrderViewHolder(View v, OnItemClickListener itemClickListener) {
         super(v);
 
         textViewOrderBy = (TextView)v.findViewById(R.id.textViewOrderBy);
@@ -24,5 +25,15 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
         textViewDeliveryDate = (TextView)v.findViewById(R.id.textViewDeliveryDate);
         textViewDeliveryTime = (TextView)v.findViewById(R.id.textViewDeliveryTime);
         textViewAddress = (TextView)v.findViewById(R.id.textViewAddress);
+        mItemClickListener = itemClickListener;
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mItemClickListener != null) {
+                    mItemClickListener.onItemClick(view, getAdapterPosition());
+                }
+            }
+        });
     }
 }

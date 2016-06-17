@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.logins.LoginActivity;
 import com.sjwoh.grabgas.logins.User;
+import com.sjwoh.grabgas.order.OnItemClickListener;
 import com.sjwoh.grabgas.order.OrderAdapter;
 
 public class ActivityViewPendingOrder extends AppCompatActivity
@@ -66,7 +67,7 @@ public class ActivityViewPendingOrder extends AppCompatActivity
         recyclerView.setLayoutManager(llm);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mOrderAdapter);
-
+        initItemSelectListener();
 
         mSharedPreferences = getSharedPreferences("USER_PREFERENCE", Context.MODE_PRIVATE);
     }
@@ -129,6 +130,18 @@ public class ActivityViewPendingOrder extends AppCompatActivity
 
         startActivity(intent);
         finish();
+    }
+
+    private void initItemSelectListener() {
+        mOrderAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getApplicationContext(), ActivityViewOrderDetailsCustomer.class);
+                intent.putExtra("ORDER_OBJECT", mOrderAdapter.getItem(position));
+
+                startActivity(intent);
+            }
+        });
     }
 
     //    @Override

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/card_vertical_margin"
+    android:paddingLeft="@dimen/card_horizontal_margin"
+    android:paddingRight="@dimen/card_horizontal_margin"
+    android:paddingTop="@dimen/card_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.sjwoh.grabgas.customer.ActivityViewOrderDetailsCustomer"
+    tools:showIn="@layout/activity_view_order_details_customer">
+
+    <ScrollView
+        android:id="@+id/scrollViewOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Order Details"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/white_overlay"
+                    android:padding="@dimen/card_horizontal_margin"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/icon_customer_name"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_person_pin_black"/>
+
+                    <TextView
+                        android:id="@+id/textViewCustomerUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_customer_name"
+                        android:layout_toEndOf="@+id/icon_customer_name"
+                        android:layout_alignParentTop="true"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:textSize="18sp"
+                        android:text="Customer Name" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_customer_name"
+                        android:layout_toEndOf="@+id/icon_customer_name"
+                        android:layout_alignBottom="@+id/icon_customer_name"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:textSize="10sp"
+                        android:text="Customer's @username" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E0E0E0"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/icon_address"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_house_location_black"/>
+
+                    <TextView
+                        android:id="@+id/textViewAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_address"
+                        android:layout_toEndOf="@+id/icon_address"
+                        android:layout_alignParentTop="true"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:textSize="16sp"
+                        android:text="Address" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E0E0E0"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/icon_supplier_name"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_supplier_modified"/>
+
+                    <TextView
+                        android:id="@+id/textViewSupplierUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_supplier_name"
+                        android:layout_toEndOf="@+id/icon_supplier_name"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_alignParentTop="true"
+                        android:textSize="18sp"
+                        android:text="Supplier Name" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_supplier_name"
+                        android:layout_toEndOf="@+id/icon_supplier_name"
+                        android:layout_alignBottom="@+id/icon_supplier_name"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:textSize="10sp"
+                        android:text="Supplier's @username" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E0E0E0"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/icon_brand_name"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_gas"/>
+
+                    <TextView
+                        android:id="@+id/textViewBrandName"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_brand_name"
+                        android:layout_toEndOf="@+id/icon_brand_name"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_alignParentTop="true"
+                        android:textSize="18sp"
+                        android:text="Brand Name" />
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@+id/icon_brand_name"
+                        android:layout_toEndOf="@+id/icon_brand_name"
+                        android:layout_alignBottom="@+id/icon_brand_name"
+                        android:textSize="10sp"
+                        android:layout_gravity="bottom"
+                        android:text="Selected @brand" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="40dp"
+                        android:background="#E0E0E0"
+                        android:visibility="visible"
+                        android:layout_toLeftOf="@+id/textViewQuantity"
+                        android:layout_toStartOf="@+id/textViewQuantity" />
+
+                    <TextView
+                        android:id="@+id/textViewQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@+id/textViewBrandName"
+                        android:layout_toEndOf="@+id/textViewBrandName"
+                        android:textSize="18sp"
+                        android:text="Qty. 10" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E0E0E0"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/icon_price"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_money_black"/>
+
+                    <TextView
+                        android:id="@+id/textViewTotalPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_price"
+                        android:layout_toEndOf="@+id/icon_price"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_alignParentTop="true"
+                        android:textSize="18sp"
+                        android:text="RM 0.00" />
+
+                    <TextView
+                        android:id="@+id/textViewSinglePrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_price"
+                        android:layout_toEndOf="@+id/icon_price"
+                        android:layout_alignBottom="@+id/icon_price"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:textSize="12sp"
+                        android:text="RM 0.00 ea" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E0E0E0"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/icon_date"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_date_black"/>
+
+                    <TextView
+                        android:id="@+id/textViewDeliveryDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_date"
+                        android:layout_toEndOf="@+id/icon_date"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_alignParentTop="true"
+                        android:textSize="18sp"
+                        android:text="Mon, Jun 10, 2016" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@+id/icon_date"
+                        android:layout_toEndOf="@+id/icon_date"
+                        android:layout_alignBottom="@+id/icon_date"
+                        android:textSize="10sp"
+                        android:layout_gravity="bottom"
+                        android:text="Delivery @date" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E0E0E0"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/icon_time"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_time_black"/>
+
+                    <TextView
+                        android:id="@+id/textViewDeliveryTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_time"
+                        android:layout_toEndOf="@+id/icon_time"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_alignParentTop="true"
+                        android:textSize="18sp"
+                        android:text="09:00 AM +0800 GMT" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@+id/icon_time"
+                        android:layout_toEndOf="@+id/icon_time"
+                        android:layout_alignBottom="@+id/icon_time"
+                        android:textSize="10sp"
+                        android:layout_gravity="bottom"
+                        android:text="Delivery @time" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E0E0E0"
+                    android:visibility="visible" />
+
+
+                <Button
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAllCaps="true"
+                    android:text="@string/button_cancel" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -28,6 +28,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     List<Order> mOrders;
     List<String> mKeys;
     private DatabaseReference mDatabaseReference;
+    private OnItemClickListener mItemClickListener;
 
     public OrderAdapter(DatabaseReference databaseReference, User user) {
         mDatabaseReference = databaseReference;
@@ -68,7 +69,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     public OrderViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order, viewGroup, false);
 
-        return new OrderViewHolder(itemView);
+        return new OrderViewHolder(itemView, mItemClickListener);
     }
 
     @Override
@@ -225,5 +226,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
         else if(mUser instanceof Customer) {
             mDatabaseReference.child("customer").child(mUser.getUsername()).child("order").addChildEventListener(orderListener);
         }
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
+    }
+
+    public Order getItem(int position) {
+        return mOrders.get(position);
     }
 }
