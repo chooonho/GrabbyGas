@@ -18,7 +18,7 @@
         android:scaleType="fitCenter"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:layout_gravity="center"
-        android:src="@android:drawable/sym_def_app_icon" />
+        android:src="@drawable/ic_profile_header_customer" />
 
     <TextView
         android:id="@+id/textViewName"

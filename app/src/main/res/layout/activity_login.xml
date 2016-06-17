@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg_login"
     tools:context=".logins.LoginActivity">
 
     <LinearLayout
@@ -46,6 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white_overlay"
             android:layout_gravity="center"/>
     </LinearLayout>
 </FrameLayout>

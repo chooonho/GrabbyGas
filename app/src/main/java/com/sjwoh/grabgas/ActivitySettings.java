@@ -1,5 +1,6 @@
 package com.sjwoh.grabgas;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,7 +12,7 @@ import com.sjwoh.grabgas.supplier.Supplier;
 
 public class ActivitySettings extends AppCompatActivity {
 
-    private TextView textViewUsername, textViewAddress, textViewMobile;
+    private TextView textViewTitle, textViewUsername, textViewAddress, textViewMobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class ActivitySettings extends AppCompatActivity {
         textViewUsername = (TextView)findViewById(R.id.textViewUsername);
         textViewAddress = (TextView)findViewById(R.id.textViewAddress);
         textViewMobile = (TextView)findViewById(R.id.textViewMobile);
+        textViewTitle = (TextView)findViewById(R.id.textViewTitle);
 
         initUserProfile();
     }
@@ -50,6 +52,7 @@ public class ActivitySettings extends AppCompatActivity {
             textViewAddress.setText(((Customer)user).getAddress());
         }
         else if(user instanceof Supplier) {
+            textViewTitle.setBackgroundColor(Color.parseColor("#545AA7"));
             textViewAddress.setText(((Supplier)user).getLocLatitude() + ", " + ((Supplier)user).getLocLongitude());
         }
         textViewMobile.setText(user.getMobilePhone());
