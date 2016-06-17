@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sjwoh.grabgas.R;
-import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.supplier.Supplier;
 
 /**
  * A simple {@link Fragment} subclass.

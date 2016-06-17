@@ -1,8 +1,6 @@
 package com.sjwoh.grabgas.order;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +12,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
-import com.sjwoh.grabgas.logins.Customer;
-import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.customer.Customer;
+import com.sjwoh.grabgas.supplier.Gas;
+import com.sjwoh.grabgas.supplier.Supplier;
 import com.sjwoh.grabgas.logins.User;
 
 import java.util.ArrayList;
@@ -138,7 +137,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                 final int status = Integer.parseInt(dataSnapshot.getValue().toString());
 
                 // For a supplied, OnChildChanged here means that the order is either cancelled
-                // or handled/declined, whereby the order status = 1 or -1
+                // or declined, whereby the order status -1 labelled as expired
                 // That case, we will have to remove it from the view
                 if(mUser instanceof Supplier) {
                     if(status == Order.ORDER_EXPIRED) {

@@ -3,6 +3,8 @@ package com.sjwoh.grabgas.order;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sjwoh.grabgas.supplier.Gas;
+
 /**
  * Created by choonho on 16/6/2016.
  */

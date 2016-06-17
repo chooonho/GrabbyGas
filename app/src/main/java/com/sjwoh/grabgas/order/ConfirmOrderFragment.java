@@ -21,8 +21,9 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sjwoh.grabgas.R;
-import com.sjwoh.grabgas.logins.Customer;
-import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.customer.Customer;
+import com.sjwoh.grabgas.supplier.Gas;
+import com.sjwoh.grabgas.supplier.Supplier;
 import com.sjwoh.grabgas.utility.CustomDatePicker;
 
 import java.text.SimpleDateFormat;

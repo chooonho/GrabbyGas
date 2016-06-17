@@ -1,4 +1,4 @@
-package com.sjwoh.grabgas.order;
+package com.sjwoh.grabgas.supplier;
 
 import android.os.Parcel;
 import android.os.Parcelable;

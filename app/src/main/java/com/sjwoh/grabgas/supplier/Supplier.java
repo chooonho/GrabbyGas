@@ -1,10 +1,10 @@
-package com.sjwoh.grabgas.logins;
+package com.sjwoh.grabgas.supplier;
 
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.sjwoh.grabgas.order.Gas;
+import com.sjwoh.grabgas.logins.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,8 +16,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
+import com.sjwoh.grabgas.customer.Customer;
 import com.sjwoh.grabgas.customer.MainActivityCustomer;
 import com.sjwoh.grabgas.supplier.MainActivitySupplier;
+import com.sjwoh.grabgas.supplier.Supplier;
 
 import java.util.UUID;
 

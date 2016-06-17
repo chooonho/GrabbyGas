@@ -3,6 +3,9 @@ package com.sjwoh.grabgas.logins;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sjwoh.grabgas.customer.Customer;
+import com.sjwoh.grabgas.supplier.Supplier;
+
 /**
  * Created by choonho on 13/6/2016.
  */

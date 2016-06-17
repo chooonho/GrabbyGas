@@ -1,4 +1,4 @@
-package com.sjwoh.grabgas.order;
+package com.sjwoh.grabgas.supplier;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sjwoh.grabgas.R;
+import com.sjwoh.grabgas.order.OnItemClickListener;
 
 /**
  * Created by choonho on 15/6/2016.

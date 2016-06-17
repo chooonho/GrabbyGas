@@ -1,4 +1,4 @@
-package com.sjwoh.grabgas.order;
+package com.sjwoh.grabgas.supplier;
 
 import android.location.Location;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
-import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.order.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

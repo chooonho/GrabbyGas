@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sjwoh.grabgas.R;
-import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.supplier.Gas;
+import com.sjwoh.grabgas.supplier.Supplier;
 
 import java.util.List;
 import java.util.Locale;

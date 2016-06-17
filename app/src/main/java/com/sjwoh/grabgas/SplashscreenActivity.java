@@ -22,9 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.customer.MainActivityCustomer;
 import com.sjwoh.grabgas.init.InitAdapter;
-import com.sjwoh.grabgas.logins.Customer;
+import com.sjwoh.grabgas.customer.Customer;
 import com.sjwoh.grabgas.logins.LoginActivity;
-import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.supplier.Supplier;
 import com.sjwoh.grabgas.logins.User;
 import com.sjwoh.grabgas.supplier.MainActivitySupplier;
 
