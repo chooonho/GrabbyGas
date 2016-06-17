@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.sjwoh.grabgas.ActivitySettings;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.customer.ActivityViewOrderDetailsCustomer;
 import com.sjwoh.grabgas.logins.LoginActivity;
@@ -105,7 +106,10 @@ public class MainActivitySupplier extends AppCompatActivity
             logout();
         }
         else if (id == R.id.nav_settings) {
+            Intent intent = new Intent(this, ActivitySettings.class);
+            intent.putExtra("USER_OBJECT", getIntent().getParcelableExtra("USER_OBJECT"));
 
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

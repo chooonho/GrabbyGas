@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sjwoh.grabgas.ActivitySettings;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.logins.LoginActivity;
 import com.sjwoh.grabgas.logins.User;
@@ -130,7 +131,10 @@ public class MainActivityCustomer extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_settings) {
-            // Handle the camera action
+            Intent intent = new Intent(this, ActivitySettings.class);
+            intent.putExtra("USER_OBJECT", getIntent().getParcelableExtra("USER_OBJECT"));
+
+            startActivity(intent);
         }
         else if (id == R.id.nav_pending_orders) {
             Intent intent = new Intent(getApplicationContext(), ActivityViewPendingOrder.class);
