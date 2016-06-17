@@ -1,6 +1,7 @@
 package com.sjwoh.grabgas.order;
 
 import android.graphics.Color;
+import android.graphics.Interpolator;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,14 +47,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
 
         if(order.getStatus() == Order.ORDER_DONE) {
             orderViewHolder.textViewOrderBy.setBackgroundColor(Color.parseColor("#545AA7"));
-            orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy() + " (Processed)");
+
+            if(mUser instanceof Supplier) {
+                orderViewHolder.textViewOrderBy.setText(order.getOrderedBy() + " (Processed)");
+            }
+            else {
+                orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy() + " (Processeed)");
+            }
         }
         else if(order.getStatus() == Order.ORDER_EXPIRED) {
             orderViewHolder.textViewOrderBy.setBackgroundColor(Color.parseColor("#696969"));
             orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy() + " (Cancelled / Declined)");
         }
         else {
-            orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy());
+            if(mUser instanceof Supplier) {
+                orderViewHolder.textViewOrderBy.setText(order.getOrderedBy());
+            }
+            else {
+                orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy());
+            }
         }
 
         orderViewHolder.textViewBrandName.setText(order.getGas().getBrand().toUpperCase());
@@ -89,7 +101,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                 }
 
                 if(mUser instanceof Supplier) {
-                    if(!dataSnapshot.getValue().toString().equals(Integer.toString(Order.ORDER_PENDING))) {
+                    if(dataSnapshot.getValue().toString().equals(Integer.toString(Order.ORDER_EXPIRED))) {
                         return;
                     }
                 }

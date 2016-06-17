@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">Grab Gas</string>
     <string name="title_activity_view_supplier">Grab Gas</string>
+    <string name="title_activity_splashscreen">Grab Gas</string>
+    <string name="title_activity_main_activity_supplier">Grab Gas</string>
+    <string name="title_activity_activity_view_pending_order">Pending Orders</string>
+    <string name="title_activity_activity_view_order_details_customer">Order Details</string>
+    <string name="title_activity_activity_view_order_details_supplier">Review Order</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-
-    <string name="title_activity_splashscreen">Grab Gas</string>
     <string name="splash_content">GRAB GAS\nIN JUST\nA TAP</string>
-
     <string name="google_map_api_key">AIzaSyCp2I6UGTXMj85aOmQ8s73AQ6hlePu3xfA</string>
 
     <string name="button_cancel">Cancel</string>
     <string name="button_confirm">Confirm</string>
-    <string name="title_activity_main_activity_supplier">Grab Gas</string>
-
-    <string name="title_activity_activity_view_pending_order">Pending Orders</string>
-    <string name="title_activity_activity_view_order_details_customer">Order Details</string>
+    <string name="button_decline">Decline</string>
+    <string name="button_process">Process</string>
 </resources>

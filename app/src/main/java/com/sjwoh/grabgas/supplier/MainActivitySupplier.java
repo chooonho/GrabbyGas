@@ -20,8 +20,10 @@ import android.widget.TextView;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.sjwoh.grabgas.R;
+import com.sjwoh.grabgas.customer.ActivityViewOrderDetailsCustomer;
 import com.sjwoh.grabgas.logins.LoginActivity;
 import com.sjwoh.grabgas.logins.User;
+import com.sjwoh.grabgas.order.OnItemClickListener;
 import com.sjwoh.grabgas.order.OrderAdapter;
 
 public class MainActivitySupplier extends AppCompatActivity
@@ -63,6 +65,7 @@ public class MainActivitySupplier extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mOrderAdapter);
+        initItemSelectListener();
 
         User user = getIntent().getParcelableExtra("USER_OBJECT");
         View headerView = navigationView.getHeaderView(0);
@@ -120,6 +123,18 @@ public class MainActivitySupplier extends AppCompatActivity
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void initItemSelectListener() {
+        mOrderAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getApplicationContext(), ActivityViewOrderDetailsSupplier.class);
+                intent.putExtra("ORDER_OBJECT", mOrderAdapter.getItem(position));
+
+                startActivity(intent);
+            }
+        });
     }
 
 //    @Override

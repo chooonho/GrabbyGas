@@ -48,8 +48,11 @@
         <activity
             android:name=".customer.ActivityViewOrderDetailsCustomer"
             android:label="@string/title_activity_activity_view_order_details_customer"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".supplier.ActivityViewOrderDetailsSupplier"
+            android:label="@string/title_activity_activity_view_order_details_supplier"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

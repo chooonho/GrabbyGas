@@ -12,6 +12,7 @@
     <dimen name="nav_header_height">240dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fab_margin_bottom">66dp</dimen>
+    <dimen name="fab_margin_bottom_2">130dp</dimen>
 
     <dimen name="card_grid_horizontal_size">180dp</dimen>
     <dimen name="card_grid_vertical_size">230dp</dimen>
