@@ -220,7 +220,7 @@ public class ConfirmOrderFragment extends Fragment {
         textViewAddress.setText(customer.getAddress());
         textViewSupplierName.setText(supplier.getName());
         textViewSupplierUsername.setText(supplier.getUsername());
-        textViewBrandName.setText(gas.getName().toUpperCase());
+        textViewBrandName.setText(gas.getBrand().toUpperCase());
         textViewSinglePrice.setText("RM " + String.format(Locale.getDefault(), "%.2f", gas.getPrice()) + " ea");
         textViewTotalPrice.setText("RM 0.00");
     }
@@ -261,8 +261,9 @@ public class ConfirmOrderFragment extends Fragment {
         String orderRef = mDatabaseReference.child("order").push().getKey();
 
         mDatabaseReference.child("order").child(orderRef).child("address").setValue(order.getAddress());
-        mDatabaseReference.child("order").child(orderRef).child("gasOrdered").child(order.getGas().getName()).child("price").setValue(order.getGas().getPrice());
-        mDatabaseReference.child("order").child(orderRef).child("gasOrdered").child(order.getGas().getName()).child("quantity").setValue(order.getQuantity());
+        mDatabaseReference.child("order").child(orderRef).child("gasOrdered").child("brand").setValue(order.getGas().getBrand());
+        mDatabaseReference.child("order").child(orderRef).child("gasOrdered").child("price").setValue(order.getGas().getPrice());
+        mDatabaseReference.child("order").child(orderRef).child("gasOrdered").child("quantity").setValue(order.getQuantity());
         mDatabaseReference.child("order").child(orderRef).child("orderDate").setValue(order.getOrderDateText());
         mDatabaseReference.child("order").child(orderRef).child("orderTime").setValue(order.getOrderTimeText());
         mDatabaseReference.child("order").child(orderRef).child("orderBy").setValue(order.getOrderedBy());

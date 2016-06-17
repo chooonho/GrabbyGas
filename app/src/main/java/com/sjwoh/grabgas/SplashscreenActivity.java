@@ -147,10 +147,12 @@ public class SplashscreenActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()) {
+                        moveToLogin();
                         return;
                     }
 
                     if(!dataSnapshot.hasChild("token")) {
+                        moveToLogin();
                         return;
                     }
 
@@ -176,6 +178,9 @@ public class SplashscreenActivity extends AppCompatActivity {
 
                             loginCallback(supplier);
                         }
+                    }
+                    else {
+                        moveToLogin();
                     }
                 }
 

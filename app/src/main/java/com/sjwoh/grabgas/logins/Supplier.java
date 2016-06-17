@@ -98,7 +98,7 @@ public class Supplier extends User {
         Bundle bGases = new Bundle();
         if(getGases() != null) {
             for(int i = 0; i < mGases.size(); i++) {
-                bGases.putDouble(mGases.get(i).getName(), mGases.get(i).getPrice());
+                bGases.putDouble(mGases.get(i).getBrand(), mGases.get(i).getPrice());
             }
         }
         outParcel.writeBundle(bGases);

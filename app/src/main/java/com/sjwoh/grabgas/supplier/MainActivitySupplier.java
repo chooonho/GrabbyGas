@@ -64,7 +64,6 @@ public class MainActivitySupplier extends AppCompatActivity
 
         Supplier supplier = getIntent().getParcelableExtra("USER_OBJECT");
         mOrderAdapter = new OrderAdapter(FirebaseDatabase.getInstance().getReference(), supplier);
-
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerViewOrders);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -7,23 +7,23 @@ import android.os.Parcelable;
  * Created by choonho on 15/6/2016.
  */
 public class Gas implements Parcelable {
-    private String mName;
+    private String mBrand;
     private double mPrice;
 
     public Gas() {
     }
 
-    public Gas(String mName, double mPrice) {
-        this.mName = mName;
+    public Gas(String mBrand, double mPrice) {
+        this.mBrand = mBrand;
         this.mPrice = mPrice;
     }
 
-    public String getName() {
-        return mName;
+    public String getBrand() {
+        return mBrand;
     }
 
-    public void setName(String name) {
-        this.mName = name;
+    public void setBrand(String brand) {
+        this.mBrand = brand;
     }
 
     public double getPrice() {
@@ -36,7 +36,7 @@ public class Gas implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel outParcel, int flags) {
-        outParcel.writeString(getName());
+        outParcel.writeString(getBrand());
         outParcel.writeDouble(getPrice());
     }
 
@@ -55,7 +55,7 @@ public class Gas implements Parcelable {
     };
 
     protected Gas(Parcel inParcel) {
-        mName = inParcel.readString();
+        mBrand = inParcel.readString();
         mPrice = inParcel.readDouble();
     }
 }

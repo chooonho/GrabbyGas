@@ -1,7 +1,6 @@
 package com.sjwoh.grabgas.order;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.logins.Supplier;
+import com.sjwoh.grabgas.logins.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +21,14 @@ import java.util.List;
  * Created by choonho on 16/6/2016.
  */
 public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
-    Supplier mSupplier;
+    User mUser;
     List<Order> mOrders;
+    List<String> mKeys;
     private DatabaseReference mDatabaseReference;
 
-    public OrderAdapter(DatabaseReference databaseReference, Supplier supplier) {
+    public OrderAdapter(DatabaseReference databaseReference, User user) {
         mDatabaseReference = databaseReference;
-        mSupplier = supplier;
+        mUser = user;
         fetchOrders();
     }
 
@@ -39,8 +40,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
 
         Order order = mOrders.get(index);
 
-        orderViewHolder.textViewOrderBy.setText(order.getOrderedBy());
-        orderViewHolder.textViewBrandName.setText(order.getGas().getName().toUpperCase());
+        if(mUser instanceof Supplier) {
+            orderViewHolder.textViewOrderBy.setText(order.getOrderedBy());
+        }
+        else {
+            orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy());
+        }
+
+        orderViewHolder.textViewBrandName.setText(order.getGas().getBrand().toUpperCase());
         orderViewHolder.textViewBrandPrice.setText("RM " + String.format("%.2f", order.getGas().getPrice()) + " ea");
         orderViewHolder.textViewQuantity.setText(Integer.toString(order.getQuantity()));
         orderViewHolder.textViewTotalPrice.setText("RM " + String.format("%.2f", (order.getQuantity() * order.getGas().getPrice())));
@@ -63,48 +70,101 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
 
     public void fetchOrders() {
         mOrders = new ArrayList<>();
+        mKeys = new ArrayList<>();
 
-        final ValueEventListener orderListener = new ValueEventListener() {
+        final ChildEventListener orderListener = new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot childSnapshot : dataSnapshot.child("supplier").child(mSupplier.getUsername()).child("order").getChildren()) {
-                    if(!childSnapshot.exists()) {
-                        break;
-                    }
-
-                    if(childSnapshot.getValue().toString().equals("0")) {
-                        Order order = new Order();
-                        order.setOrderRef(childSnapshot.getKey());
-                        order.setStatus(Integer.parseInt(childSnapshot.getValue().toString()));
-                        mOrders.add(order);
-                    }
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(mKeys.contains(dataSnapshot.getKey())) {
+                    return;
                 }
 
-                for(Order order : mOrders) {
-                    DataSnapshot childSnapshot = dataSnapshot.child("order").child(order.getOrderRef());
-                    if(!childSnapshot.exists()) {
-                        continue;
-                    }
+                if(dataSnapshot.getValue().toString().equals(Integer.toString(Order.ORDER_PENDING))) {
+                    final String orderRef = dataSnapshot.getKey();
+                    final int status = Integer.parseInt(dataSnapshot.getValue().toString());
 
-                    order.setAddress(childSnapshot.child("address").getValue().toString());
-                    order.setDeliveryDateText(childSnapshot.child("deliveryDate").getValue().toString());
-                    order.setDeliveryTimeText(childSnapshot.child("deliveryTime").getValue().toString());
-                    order.setOrderedBy(childSnapshot.child("orderBy").getValue().toString());
-                    order.setSuppliedBy(mSupplier.getUsername());
+                    mDatabaseReference.child("order").child(dataSnapshot.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Order order = new Order();
+                            order.setOrderRef(orderRef);
+                            order.setStatus(status);
+                            order.setAddress(dataSnapshot.child("address").getValue().toString());
+                            order.setDeliveryDateText(dataSnapshot.child("deliveryDate").getValue().toString());
+                            order.setDeliveryTimeText(dataSnapshot.child("deliveryTime").getValue().toString());
+                            order.setOrderedBy(dataSnapshot.child("orderBy").getValue().toString());
+                            order.setSuppliedBy(mUser.getUsername());
 
-                    for(DataSnapshot grandChildSnapshot : childSnapshot.child("gasOrdered").getChildren()) {
-                        if(!grandChildSnapshot.exists()) {
-                            break;
+                            Gas gas = new Gas();
+                            gas.setBrand(dataSnapshot.child("gasOrdered").child("brand").getValue().toString());
+                            gas.setPrice(Double.parseDouble(dataSnapshot.child("gasOrdered").child("price").getValue().toString()));
+                            order.setGas(gas);
+                            order.setQuantity(Integer.parseInt(dataSnapshot.child("gasOrdered").child("quantity").getValue().toString()));
+
+                            mOrders.add(mOrders.size(), order);
+                            mKeys.add(mKeys.size(), dataSnapshot.getKey());
+
+                            notifyItemInserted(mOrders.size() - 1);
                         }
 
-                        Gas gas = new Gas();
-                        gas.setName(grandChildSnapshot.getKey());
-                        gas.setPrice(Double.parseDouble(grandChildSnapshot.child("price").getValue().toString()));
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                        order.setGas(gas);
-                        order.setQuantity(Integer.parseInt(grandChildSnapshot.child("quantity").getValue().toString()));
-                    }
+                        }
+                    });
                 }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                if(!mKeys.contains(dataSnapshot.getKey())) {
+                    return;
+                }
+
+                // OnChildChanged here means that the order is either cancelled or handled/declined,
+                // whereby the order status = 1 or -1
+                // That case, we will have to remove it from the view
+                if(!mKeys.contains(dataSnapshot.getKey())) {
+                    return;
+                }
+
+                String key = dataSnapshot.getKey();
+                int removeIndex = mKeys.indexOf(key);
+
+                mOrders.remove(removeIndex);
+                mKeys.remove(removeIndex);
+
+                notifyItemRemoved(removeIndex);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                if(!mKeys.contains(dataSnapshot.getKey())) {
+                    return;
+                }
+
+                String key = dataSnapshot.getKey();
+                int removeIndex = mKeys.indexOf(key);
+
+                mOrders.remove(removeIndex);
+                mKeys.remove(removeIndex);
+
+                notifyItemRemoved(removeIndex);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                if(!mKeys.contains(dataSnapshot.getKey())) {
+                    return;
+                }
+
+                String key = dataSnapshot.getKey();
+                int removeIndex = mKeys.indexOf(key);
+
+                mOrders.remove(removeIndex);
+                mKeys.remove(removeIndex);
+
+                notifyItemRemoved(removeIndex);
             }
 
             @Override
@@ -113,6 +173,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
             }
         };
 
-        mDatabaseReference.addValueEventListener(orderListener);
+        if(mUser instanceof Supplier) {
+            mDatabaseReference.child("supplier").child(mUser.getUsername()).child("order").addChildEventListener(orderListener);
+        }
+        else {
+            mDatabaseReference.child("customer").child(mUser.getUsername()).child("order").addChildEventListener(orderListener);
+        }
     }
 }

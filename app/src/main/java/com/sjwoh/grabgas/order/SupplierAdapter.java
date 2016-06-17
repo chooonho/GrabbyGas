@@ -51,7 +51,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierViewHolder> {
         List<Gas> gases = supplier.getGases();
         if(gases != null) {
             for(int i = 0; i < gases.size(); i++) {
-                brands += gases.get(i).getName();
+                brands += gases.get(i).getBrand();
 
                 if(i != (gases.size() - 1)) {
                     brands += ", ";
@@ -125,7 +125,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierViewHolder> {
 
                         Gas gas = new Gas();
 
-                        gas.setName(childSnapshot.getKey());
+                        gas.setBrand(childSnapshot.getKey());
                         gas.setPrice(Double.parseDouble(childSnapshot.child("price").getValue().toString()));
 
                         gases.add(gas);

@@ -32,7 +32,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandViewHolder> {
 
         Gas gas = mGases.get(index);
 
-        brandViewHolder.textViewBrandName.setText(gas.getName().toUpperCase());
+        brandViewHolder.textViewBrandName.setText(gas.getBrand().toUpperCase());
         brandViewHolder.textViewBrandPrice.setText("RM " + String.format(Locale.getDefault(), "%.2f", gas.getPrice()) + " ea");
     }
 
