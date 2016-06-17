@@ -3,12 +3,12 @@
 
     <group android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_pending_orders"
-            android:icon="@drawable/ic_pageview_grey"
-            android:title="View Orders" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_grey"
+            android:title="Home" />
     </group>
 
-    <item android:title="Account">
+    <item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_settings"

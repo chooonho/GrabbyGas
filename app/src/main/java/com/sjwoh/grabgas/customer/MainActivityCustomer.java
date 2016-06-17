@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -28,26 +29,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
 import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.LoginActivity;
-import com.sjwoh.grabgas.logins.Supplier;
 import com.sjwoh.grabgas.logins.User;
-import com.sjwoh.grabgas.order.Gas;
 import com.sjwoh.grabgas.order.MakeOrderActivity;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -65,7 +58,7 @@ public class MainActivityCustomer extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.sjwoh.grabgas.R.layout.activity_main);
+        setContentView(com.sjwoh.grabgas.R.layout.activity_main_customer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -134,7 +127,6 @@ public class MainActivityCustomer extends AppCompatActivity
         mMap = map;
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -142,7 +134,15 @@ public class MainActivityCustomer extends AppCompatActivity
 
         if (id == R.id.nav_settings) {
             // Handle the camera action
-        } else if (id == R.id.nav_logout) {
+        }
+        else if (id == R.id.nav_pending_orders) {
+            Intent intent = new Intent(getApplicationContext(), ActivityViewPendingOrder.class);
+            intent.putExtra("USER_OBJECT", getIntent().getParcelableExtra("USER_OBJECT"));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_logout) {
             logout();
         }
 

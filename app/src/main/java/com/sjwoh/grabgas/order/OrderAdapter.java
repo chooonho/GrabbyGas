@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.sjwoh.grabgas.R;
+import com.sjwoh.grabgas.logins.Customer;
 import com.sjwoh.grabgas.logins.Supplier;
 import com.sjwoh.grabgas.logins.User;
 
@@ -43,7 +44,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
         if(mUser instanceof Supplier) {
             orderViewHolder.textViewOrderBy.setText(order.getOrderedBy());
         }
-        else {
+        else if(mUser instanceof Customer){
             orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy());
         }
 
@@ -93,7 +94,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                             order.setDeliveryDateText(dataSnapshot.child("deliveryDate").getValue().toString());
                             order.setDeliveryTimeText(dataSnapshot.child("deliveryTime").getValue().toString());
                             order.setOrderedBy(dataSnapshot.child("orderBy").getValue().toString());
-                            order.setSuppliedBy(mUser.getUsername());
+                            order.setSuppliedBy(dataSnapshot.child("suppliedBy").getValue().toString());
 
                             Gas gas = new Gas();
                             gas.setBrand(dataSnapshot.child("gasOrdered").child("brand").getValue().toString());
@@ -176,7 +177,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
         if(mUser instanceof Supplier) {
             mDatabaseReference.child("supplier").child(mUser.getUsername()).child("order").addChildEventListener(orderListener);
         }
-        else {
+        else if(mUser instanceof Customer) {
             mDatabaseReference.child("customer").child(mUser.getUsername()).child("order").addChildEventListener(orderListener);
         }
     }
