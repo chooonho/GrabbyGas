@@ -266,12 +266,13 @@ public class ConfirmOrderFragment extends Fragment {
         mDatabaseReference.child("order").child(orderRef).child("gasOrdered").child("quantity").setValue(order.getQuantity());
         mDatabaseReference.child("order").child(orderRef).child("orderDate").setValue(order.getOrderDateText());
         mDatabaseReference.child("order").child(orderRef).child("orderTime").setValue(order.getOrderTimeText());
-        mDatabaseReference.child("order").child(orderRef).child("orderBy").setValue(order.getOrderedBy());
+        mDatabaseReference.child("order").child(orderRef).child("orderedBy").setValue(order.getOrderedBy());
         mDatabaseReference.child("order").child(orderRef).child("deliveryDate").setValue(order.getDeliveryDateText());
         mDatabaseReference.child("order").child(orderRef).child("deliveryTime").setValue(order.getDeliveryTimeText());
         mDatabaseReference.child("order").child(orderRef).child("status").setValue(order.getStatus());
         mDatabaseReference.child("order").child(orderRef).child("suppliedBy").setValue(order.getSuppliedBy());
 
         mDatabaseReference.child("supplier").child(order.getSuppliedBy()).child("order").child(orderRef).setValue(order.getStatus());
+        mDatabaseReference.child("customer").child(order.getOrderedBy()).child("order").child(orderRef).setValue(order.getStatus());
     }
 }

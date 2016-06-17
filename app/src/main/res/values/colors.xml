@@ -11,4 +11,7 @@
     <color name="white_overlay">#FFFFFF</color>
 
     <color name="color_greyed_button">#EEEEEE</color>
+
+    <color name="grey_overlay">#696969</color>
+    <color name="blue_overlay">#545AA7</color>
 </resources>
