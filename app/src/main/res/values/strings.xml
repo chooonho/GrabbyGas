@@ -14,7 +14,7 @@
 
     <string name="button_cancel">Cancel</string>
     <string name="button_confirm">Confirm</string>
-    <string name="title_activity_main_activity_supplier">MainActivitySupplier</string>
+    <string name="title_activity_main_activity_supplier">Grab Gas</string>
 
     <string name="title_activity_activity_view_pending_order">Grab Gas</string>
 </resources>
