@@ -39,12 +39,10 @@ public class InitAdapter extends RecyclerView.Adapter<InitViewHolder> {
         ValueEventListener initListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                return;
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                return;
             }
         };
 

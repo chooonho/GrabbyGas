@@ -52,7 +52,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                 orderViewHolder.textViewOrderBy.setText(order.getOrderedBy() + " (Processed)");
             }
             else {
-                orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy() + " (Processeed)");
+                orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy() + " (Processed)");
             }
         }
         else if(order.getStatus() == Order.ORDER_EXPIRED) {
@@ -60,6 +60,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
             orderViewHolder.textViewOrderBy.setText(order.getSuppliedBy() + " (Cancelled / Declined)");
         }
         else {
+            orderViewHolder.textViewOrderBy.setBackgroundColor(Color.parseColor("#c62828"));
+
             if(mUser instanceof Supplier) {
                 orderViewHolder.textViewOrderBy.setText(order.getOrderedBy());
             }
