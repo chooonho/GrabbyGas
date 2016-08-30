@@ -2,7 +2,7 @@
 ## Overview
 An android mobile application which is made to be more familar with android development.
 
-Though it is not a published, it is indeed a working application with some minor bugs that has yet to be fixed.
+Though it is not published, it is indeed a working application with some minor bugs that has yet to be fixed.
 
 Simply clone the project and open it with Android Studio 2.0+. Build and run the project. You may choose to either plug in your android mobile device or use an emulator to run this application.
 
